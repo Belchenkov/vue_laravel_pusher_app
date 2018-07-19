@@ -22,7 +22,7 @@ class QuestionController extends Controller
     /**
      * Display a listing of the resource.
      * @param Question $question
-     * @return Question
+     * @return QuestionResource
      */
     public function show(Question $question)
     {
@@ -51,7 +51,9 @@ class QuestionController extends Controller
      */
     public function update(Request $request, Question $question)
     {
-        //
+        $question->update($request->all());
+
+        return response('Updated', Response::HTTP_ACCEPTED);
     }
 
     /**
