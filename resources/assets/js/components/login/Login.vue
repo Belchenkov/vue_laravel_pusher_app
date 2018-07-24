@@ -1,0 +1,70 @@
+<template>
+    <v-app id="inspire">
+        <v-content>
+            <v-container fluid>
+                <v-layout align-center justify-center>
+                    <v-flex xs12 sm8 md4>
+                        <v-card class="elevation-12">
+                            <v-toolbar dark color="blue-grey darken-3">
+                                <v-toolbar-title>Войти</v-toolbar-title>
+                                <v-spacer></v-spacer>
+                            </v-toolbar>
+                            <v-card-text>
+                                <v-form @submit="login">
+                                    <v-text-field
+                                            prepend-icon="email"
+                                            v-model="form.email"
+                                            type="email"
+                                            clearable
+                                            color="blue-grey darken-3"
+                                    ></v-text-field>
+                                    <v-text-field
+                                            prepend-icon="lock"
+                                            v-model="form.password"
+                                            clearable
+                                            type="password"
+                                            color="blue-grey darken-3"
+                                    ></v-text-field>
+                                </v-form>
+                            </v-card-text>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn
+                                        color="blue-grey darken-3"
+                                        @click="login"
+                                        dark
+                                >Войти</v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-flex>
+                </v-layout>
+            </v-container>
+        </v-content>
+    </v-app>
+</template>
+
+<script>
+    export default {
+        data () {
+            return {
+                drawer: null,
+                form: {
+                    email: null,
+                    password: null
+                },
+                valid: false
+            }
+        },
+        methods: {
+            login () {
+                axios.post('/api/auth/login', this.form)
+                    .then(res => console.log(res))
+                    .catch(err => console.error(err.response.data))
+            }
+        }
+    }
+</script>
+
+<style scoped>
+
+</style>
