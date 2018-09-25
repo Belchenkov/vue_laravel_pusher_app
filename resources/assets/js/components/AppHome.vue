@@ -2,7 +2,6 @@
     <v-flex>
         <toolbar></toolbar>
         <router-view></router-view>
-        <app-footer></app-footer>
     </v-flex>
 </template>
 
@@ -21,5 +20,7 @@
 </script>
 
 <style>
-
+    a {
+        text-decoration: none;
+    }
 </style>

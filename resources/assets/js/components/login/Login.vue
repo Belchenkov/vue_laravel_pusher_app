@@ -28,12 +28,19 @@
                                 </v-form>
                             </v-card-text>
                             <v-card-actions>
-                                <v-spacer></v-spacer>
                                 <v-btn
                                         color="blue-grey darken-3"
                                         @click="login"
                                         dark
                                 >Войти</v-btn>
+                                <v-spacer></v-spacer>
+                                <router-link to="/signup">
+                                    <v-btn
+                                            color="blue-grey darken-3"
+                                            flat
+                                            dark
+                                    >Зарегистрироваться</v-btn>
+                                </router-link>
                             </v-card-actions>
                         </v-card>
                     </v-flex>
@@ -58,11 +65,14 @@
         methods: {
             login () {
                 User.login(this.form);
+                this.$router.push({name: 'forum'})
             }
         }
     }
 </script>
 
 <style scoped>
-
+    a {
+        text-decoration: none;
+    }
 </style>
