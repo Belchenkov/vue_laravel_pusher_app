@@ -16,6 +16,7 @@ class User {
 
         if (accessTokken) {
             AppStorage.store(userName, accessTokken, userId);
+            window.location = '/forum';
         }
     }
 
@@ -29,6 +30,7 @@ class User {
 
     logout () {
         AppStorage.clear();
+        window.location = '/login';
     }
 
     name () {
