@@ -5,7 +5,9 @@
         <h3 class="headline mb-0">
           <router-link :to="data.path">{{data.title}}</router-link>
         </h3>
-        <v-flex class="grey--text">{{data.created_at}}</v-flex>
+        <v-flex class="grey--text">
+          {{data.user}} said {{data.created_at}}
+        </v-flex>
         </v-flex>
     </v-card-title>
 
