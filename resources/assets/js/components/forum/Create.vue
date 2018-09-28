@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-form @submit="create" class="xs6">
+    <v-form @submit.prevent="create" class="xs6">
         <v-text-field
                 prepend-icon="create"
                 v-model="form.title"
