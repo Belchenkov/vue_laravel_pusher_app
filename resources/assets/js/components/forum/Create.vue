@@ -20,20 +20,30 @@
           color="success"
       >
       </v-autocomplete>
-        <v-btn color="success" type="submit">Create</v-btn>
+
+      <markdown-editor v-model="body" ref="markdownEditor"></markdown-editor>
+
+      <v-btn color="success" type="submit">Create</v-btn>
     </v-form>
   </v-container>
 </template>
 
 <script>
+import markdownEditor from 'vue-simplemde/src/markdown-editor';
+
 export default {
+  components: {
+      markdownEditor
+  },
   data () {
     return {
       form: {
         title: '',
         categoryId: ''
       },
-      categories: []
+      body: '',
+      categories: [],
+      errors: ''
     }
   },
   created () {
@@ -45,12 +55,13 @@ export default {
   },
   methods: {
     create () {
-      
+      axios.post('/api/question', this.form)
+        .then(res => console.log(res.data.data))
+        .catch(error => this.errors = error.response.data.error)
     }
   }
 }
 </script>
 
 <style>
-
 </style>
