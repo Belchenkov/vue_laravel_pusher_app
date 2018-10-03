@@ -11,7 +11,7 @@
         ></v-text-field>
         <v-autocomplete
           prepend-icon="format_list_bulleted"
-          v-model="form.categoryId"
+          v-model="form.category_id"
           :items="categories"
           clearable
           item-text="name"
@@ -21,7 +21,7 @@
       >
       </v-autocomplete>
 
-      <markdown-editor v-model="body" ref="markdownEditor"></markdown-editor>
+      <markdown-editor v-model="form.body" ref="markdownEditor"></markdown-editor>
 
       <v-btn color="success" type="submit">Create</v-btn>
     </v-form>
@@ -39,9 +39,9 @@ export default {
     return {
       form: {
         title: '',
-        categoryId: ''
+        category_id: '',
+        body: ''
       },
-      body: '',
       categories: [],
       errors: ''
     }
