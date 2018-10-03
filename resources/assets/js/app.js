@@ -16,6 +16,10 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 Vue.use(Vuetify);
 
+// Markdown
+import md from 'marked';
+window.md = md;
+
 import User from './Helpers/User';
 window.User = User;
 window.EventBus = new Vue();

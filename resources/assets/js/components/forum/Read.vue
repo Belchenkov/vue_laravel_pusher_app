@@ -1,5 +1,8 @@
 <template>
-  <show-question :question="question"></show-question>
+  <show-question 
+    :question="question"
+    v-if="question"
+  ></show-question>
 </template>
 
 <script>
@@ -11,7 +14,7 @@ export default {
   },
   data () {
     return {
-      question: {}
+      question: null
     }
   },
   created () {

@@ -22,10 +22,16 @@
 </template>
 
 <script>
+
 export default {
   props: [
     'question'
   ],
+  computed: {
+    body () {
+      return md.parse(this.data.body);
+    }
+  }
 
 }
 </script>
