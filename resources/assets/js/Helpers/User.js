@@ -46,9 +46,6 @@ class User {
     }
 
     own (id) {
-        console.log(id);
-        console.log(this.id());
-        
         return this.id() == id;
     }
 }
