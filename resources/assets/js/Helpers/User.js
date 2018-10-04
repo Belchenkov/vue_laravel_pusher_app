@@ -44,6 +44,13 @@ class User {
             return AppStorage.getUserId();
         }
     }
+
+    own (id) {
+        console.log(id);
+        console.log(this.id());
+        
+        return this.id() == id;
+    }
 }
 
 export default User = new User();
