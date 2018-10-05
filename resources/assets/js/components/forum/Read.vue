@@ -1,14 +1,13 @@
 <template>
-  <v-flex>
+  <v-flex v-if="question">
     <edit-question
       v-if="editing"
+      :question="question"
     ></edit-question>
-    <template v-else>
-      <show-question 
-        :question="question"
-        v-if="question"
-      ></show-question>
-    </template>
+    <show-question 
+      v-else
+      :question="question"
+    ></show-question>
   </v-flex>
 </template>
 
@@ -35,6 +34,9 @@ export default {
     listen () {
       EventBus.$on('startEditing', () => {
         this.editing = true;
+      });
+      EventBus.$on('cancelEditing', () => {
+        this.editing = false;
       });
     },
     getQuestion () {
