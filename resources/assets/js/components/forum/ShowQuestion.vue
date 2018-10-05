@@ -15,7 +15,7 @@
           </v-card-title>
           <v-card-text class="card-text" v-html="question.body"></v-card-text>
            <v-card-actions v-if="own">
-            <v-btn icon small>
+            <v-btn icon small @click="edit">
               <v-icon color="orange darken-2">edit</v-icon>
             </v-btn>
             <v-btn icon small @click="destroy">
@@ -47,6 +47,9 @@ export default {
       axios.delete(`/api/question/${this.question.slug}`)
         .then(res => this.$router.push('/forum'))
         .catch(error => console.log(error.response.data));
+    },
+    edit () {
+      EventBus.$emit('startEditing');
     }
   }
 
