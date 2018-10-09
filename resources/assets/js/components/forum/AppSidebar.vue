@@ -4,11 +4,6 @@
             <v-toolbar-title>Categories</v-toolbar-title>
         </v-toolbar>
         <v-list>
-            <v-list-tile>
-                <v-list-tile-content>
-                    <v-list-tile-title>Category</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
             <v-list-tile
                 v-for="category in categories"
                 :key="category.id"
