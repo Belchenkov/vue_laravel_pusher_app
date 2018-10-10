@@ -19,7 +19,7 @@
               <v-toolbar-title>Categories</v-toolbar-title>
           </v-toolbar>
           <v-list>
-              <v-flex v-for="category in categories" :key="category.id">
+              <v-flex v-for="(category, index) in categories" :key="category.id">
                   <v-list-tile>
                       <v-list-tile-action>
                           <v-btn icon small>
@@ -32,7 +32,7 @@
                           </v-list-tile-title>
                       </v-list-tile-content>
                       <v-list-tile-action>
-                          <v-btn icon small>
+                          <v-btn icon small @click="destroy(category.slug, index)">
                               <v-icon color="red">delete</v-icon>
                           </v-btn>
                       </v-list-tile-action>
@@ -63,7 +63,16 @@
         methods: {
             submit () {
                 axios.post('/api/category', this.form)
-                    .then(res => console.log(res.data))
+                    .then(res => {
+                        this.categories.unshift(res.data);
+                        this.form.name = '';
+                    })
+                    .catch(err => console.error(err))
+            },
+            destroy (slug, index) {
+                axios.delete(`/api/category/${slug}`)
+                    .then(res => this.categories.splice(index, 1))
+                    .catch(err => console.error(err))
             }
         }
     }
