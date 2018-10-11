@@ -7,7 +7,21 @@
             required
             color="green"
           ></v-text-field>
+          <template v-if="editSlug">
+              <v-btn
+                      type="submit"
+                      color="orange"
+                      dark
+              >Update</v-btn>
+              <v-btn
+                      color="red"
+                      dark
+                      @click="cancel"
+              >Cancel</v-btn>
+          </template>
+
           <v-btn
+            v-else
             type="submit"
             color="green"
             dark
@@ -22,7 +36,7 @@
               <v-flex v-for="(category, index) in categories" :key="category.id">
                   <v-list-tile>
                       <v-list-tile-action>
-                          <v-btn icon small>
+                          <v-btn icon small @click="edit(index)">
                               <v-icon color="orange">edit</v-icon>
                           </v-btn>
                       </v-list-tile-action>
@@ -52,7 +66,8 @@
                 form: {
                     name: ''
                 },
-                categories: {}
+                categories: {},
+                editSlug: null
             }
         },
         created () {
@@ -62,6 +77,10 @@
         },
         methods: {
             submit () {
+                this.editSlug ? this.update() : this.create();
+
+            },
+            create () {
                 axios.post('/api/category', this.form)
                     .then(res => {
                         this.categories.unshift(res.data);
@@ -69,10 +88,28 @@
                     })
                     .catch(err => console.error(err))
             },
+            update () {
+                axios.patch(`/api/category/${this.editSlug}`, this.form)
+                    .then(res => {
+                        this.categories.unshift(res.data);
+                        this.form.name = '';
+                        this.editSlug = null;
+                    })
+                    .catch(err => console.error(err))
+            },
+            edit (index) {
+                this.editSlug = this.categories[index].slug;
+                this.form.name = this.categories[index].name;
+                this.categories.splice(index, 1);
+            },
             destroy (slug, index) {
                 axios.delete(`/api/category/${slug}`)
                     .then(res => this.categories.splice(index, 1))
                     .catch(err => console.error(err))
+            },
+            cancel () {
+                this.editSlug = null;
+                this.form.name = '';
             }
         }
     }
