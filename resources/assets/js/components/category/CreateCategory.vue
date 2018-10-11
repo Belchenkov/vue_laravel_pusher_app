@@ -71,6 +71,10 @@
             }
         },
         created () {
+            if (!User.admin()) {
+                this.$router.push('/forum');
+            }
+
             axios.get('/api/category')
                 .then(res => this.categories = res.data.data)
                 .catch(err => console.error(err))
@@ -81,6 +85,7 @@
 
             },
             create () {
+
                 axios.post('/api/category', this.form)
                     .then(res => {
                         this.categories.unshift(res.data);
