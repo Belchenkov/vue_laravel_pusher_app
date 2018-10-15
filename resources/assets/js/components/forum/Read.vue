@@ -8,17 +8,22 @@
       v-else
       :question="question"
     ></show-question>
+    <replies
+      :replies="question.replies"
+    ></replies>
   </v-flex>
 </template>
 
 <script>
 import ShowQuestion from './ShowQuestion';
 import EditQuestion from './EditQuestion';
+import Replies from '../reply/Replies';
 
 export default {
   components: {
     ShowQuestion,
-    EditQuestion
+    EditQuestion,
+      Replies
   },
   data () {
     return {
