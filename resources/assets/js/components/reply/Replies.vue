@@ -1,12 +1,12 @@
 <template>
-    <v-container>
+    <v-flex px-4>
         <reply
-                v-for="reply in replies"
+                v-for="reply in content"
                 :data="reply"
-                v-if="replies"
+                v-if="content"
                 :key="reply.id"
         ></reply>
-    </v-container>
+    </v-flex>
 </template>
 
 <script>
@@ -18,6 +18,22 @@
         ],
         components: {
             Reply
+        },
+        data () {
+            return {
+                content: this.replies
+            }
+        },
+        created () {
+            this.listen();
+        },
+        methods: {
+            listen () {
+                EventBus.$on('newReply', (reply) => {
+                    this.content.unshift(reply);
+                    window.scrollTo(0, 0);
+                });
+            }
         }
     }
 </script>
