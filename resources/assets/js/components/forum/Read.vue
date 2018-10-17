@@ -9,7 +9,7 @@
       :question="question"
     ></show-question>
     <replies
-      :replies="question.replies"
+      :question="question"
     ></replies>
 
     <v-container>
