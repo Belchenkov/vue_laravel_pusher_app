@@ -2,29 +2,42 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\QuestionResource;
 use App\Model\Question;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+use App\User;
 
 class QuestionController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Create a new AuthController instance.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function index()
+    public function __construct()
     {
-        //
+        $this->middleware('JWT', ['except' => ['index', 'show', 'store', 'update', 'destroy']]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function create()
+    public function index()
     {
-        //
+        return QuestionResource::collection(Question::latest()->get());
+    }
+
+    /**
+     * Display a listing of the resource.
+     * @param Question $question
+     * @return QuestionResource
+     */
+    public function show(Question $question)
+    {
+        return new QuestionResource($question);
     }
 
     /**
@@ -35,29 +48,9 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $question = User::find(13)->question()->create($request->all());
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Model\Question  $question
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Question $question)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Model\Question  $question
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Question $question)
-    {
-        //
+        return response(new QuestionResource($question), Response::HTTP_CREATED);
     }
 
     /**
@@ -69,17 +62,21 @@ class QuestionController extends Controller
      */
     public function update(Request $request, Question $question)
     {
-        //
+        $question->update($request->all());
+
+        return response('Updated', Response::HTTP_ACCEPTED);
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \App\Model\Question  $question
+     * @param  \App\Model\Question $question
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Question $question)
     {
-        //
+        $question->delete();
+
+        return response('Deleted', Response::HTTP_NO_CONTENT);
     }
 }
