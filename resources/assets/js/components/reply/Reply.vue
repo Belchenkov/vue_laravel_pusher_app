@@ -5,7 +5,9 @@
                 <div class="headline mr-3">{{ data.user }}</div>
                 <div> said {{ data.created_at }}</div>
                 <v-spacer></v-spacer>
-                <like></like>
+                <like
+                    :content="data"
+                ></like>
             </v-card-title>
             <v-divider></v-divider>
 
