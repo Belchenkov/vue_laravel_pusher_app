@@ -1,1 +1,0 @@
-# Vue 2 + Pusher Application
